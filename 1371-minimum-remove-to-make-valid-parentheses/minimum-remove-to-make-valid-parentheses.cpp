@@ -1,36 +1,40 @@
 class Solution {
 public:
     string minRemoveToMakeValid(string s) {
-        stack<int>st,t;
+        
+        stack<int>st;
+        set<int>se;
         for(int i=0;i<s.size();i++)
         {
-            if(s[i]=='('){
-             t.push(i);
-             st.push(i);
-            }
-            else if(s[i]==')'){
-                if(!t.empty()){
-                    t.pop();
-                    st.push(i);
-                }
-            }
-            else{
+            if(s[i]=='(')
+            {
                 st.push(i);
             }
-            
+            else if(s[i]==')')
+            {
+                if(!st.empty())
+                st.pop();
+                else
+                se.insert(i);
+            }
+
+        }
+        while(!st.empty())
+        {
+            se.insert(st.top());
+            st.pop();
         }
         string ans;
-        while(!st.empty()){
-            if(!t.empty() && st.top()==t.top()){
-                st.pop();
-                t.pop();
-            }
-            else{
-                ans+=s[st.top()];
-                st.pop();
-            }
+        for(int i=0;i<s.size();i++)
+        {
+            if(se.find(i)!=se.end())
+            continue;
+            else
+            ans+=s[i];
+
         }
-        reverse(ans.begin(),ans.end());
         return ans;
+        
+    
     }
 };
