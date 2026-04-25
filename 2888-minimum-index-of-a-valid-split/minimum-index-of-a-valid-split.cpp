@@ -1,16 +1,16 @@
 class Solution {
 public:
     int minimumIndex(vector<int>& nums) {
-        map<int,int>m,n;
+        map<int,int>m;
         int d=INT_MIN,f=0;
         for(int i=0;i<nums.size();i++){
-            n[nums[i]]++;
-            if(n[nums[i]]>f){
+            m[nums[i]]++;
+            if(m[nums[i]]>f){
                 d=nums[i];
-                f=n[nums[i]];
+                f=m[nums[i]];
             }
         }
-    
+        m.clear();
         int d1=INT_MIN,f1=0;
         for(int i=0;i<nums.size();i++){
            m[nums[i]]++;
