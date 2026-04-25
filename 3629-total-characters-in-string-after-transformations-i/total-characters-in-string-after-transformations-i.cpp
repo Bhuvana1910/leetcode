@@ -23,7 +23,7 @@ public:
                 }
                
             }
-            ans=next;
+            ans=move(next);
         }
         long long c=0;
         for(int i=0;i<26;i++)
