@@ -5,15 +5,15 @@ public:
         if(palindrome.size()==1)
         return "";
         bool f=false;
-        for(int i=0;i<palindrome.size();i++){
+        for(int i=0;i<palindrome.size()/2;i++){
             if(palindrome[i]!='a'){
-                if(!(n%2==1 && i==(n/2)) )
-                {
+                
+                
                     cout<<i<<" "<<palindrome[i]<<endl;
                     palindrome[i]='a';
                     f=true;
                     break;
-                }
+                
             }
         }
         if(!f)
