@@ -1,22 +1,30 @@
 class Solution {
 public:
-    bool check(string s){
-        bool f=false;
-        for(int i=0;i<s.size();i++){
-            if(s[i]=='3'||s[i]=='4'||s[i]=='7')
-            return false;
-            if(s[i]=='2'||s[i]=='5'||s[i]=='6'||s[i]=='9')
-            f=true;
-        }
-        if(f)
-        return true;
-        return false;
+    int check(int i){
+        if(i==0)
+        return 0;
+        int r=check(i/10);
+        if(r==2)
+        return 2;
+        int d=i%10;
+        int v_d=0;
+        if(d==0 || d==1|| d==8 )
+        v_d=0;
+        else if(d==2 || d==5 || d==6 || d==9)
+        v_d=1;
+        else
+        return 2;
+        if(r==0 && v_d==0)
+        return 0;
+        return 1;
+
+
     }
     int rotatedDigits(int n) {
         int c=0;
         for(int i=1;i<=n;i++){
-            string s=to_string(i);
-            if(check(s))
+            
+            if(check(i)==1)
             c++;
         }
         return c;
