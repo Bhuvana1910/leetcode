@@ -1,42 +1,32 @@
 class Solution {
 public:
-    vector<char> genes = {'A','C','G','T'}; 
-    unordered_map<string, int>b;
-    map<pair<string,int>,int>m;
-    int find(string c,string e,int mask){
-        if(c==e)
-        return 0;
-        if(m.count({c,mask}))
-        return m[{c,mask}];
-        int ans=100000007;
-        for(int i=0;i<c.size();i++){
-            char cc=c[i];
-            for(int j=0;j<genes.size();j++){
-                if(genes[j]==cc)
-                continue;
-                c[i]=genes[j];
-                if(b.count(c))
-                {
-                if(!(mask & (1<<b[c])))
-                ans=min(ans,1+find(c,e,mask|(1<<b[c])));
-
-                }
-
+    int minMutation(string st, string e, vector<string>& bank) {
+        set<string>s(bank.begin(),bank.end());
+        set<string>vis;
+        deque<pair<string,int>>q;
+        q.push_back({st,0});
+        if(!s.count(e))
+        return -1;
+        vis.insert(st);
+        while(!q.empty()){
+            string cc=q.front().first;
+            int steps=q.front().second;
+            q.pop_front();
+            if(cc==e)
+            return steps;
+            for(char ch:"ACGT"){
+            for(int i=0;i<st.size();i++){
+            if(cc[i]==ch)
+            continue;
+            string n=cc;
+            n[i]=ch;
+            if(s.count(n) &&!vis.count(n)){
+                vis.insert(n); 
+                q.push_back({n,steps+1});
             }
-            c[i]=cc;
+            }
+            }
         }
-         return m[{c,mask}]=ans;
-    
-    }
-    int minMutation(string startGene, string endGene, vector<string>& bank) {
-    b.clear();
-    for(int i=0;i<bank.size();i++)
-     b[bank[i]]=i;
-    if(!b.count(endGene))
-    return -1;
-    int ans=find(startGene,endGene,0);
-    if(ans==100000007)
-    return -1;
-    return ans;
+        return -1;
     }
 };
