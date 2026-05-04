@@ -1,26 +1,19 @@
 class Solution {
 public:
-    void rotate(vector<vector<int>>& a) {
-        int n=a.size();
-       for(int i=0;i<n;i++){
-        for(int j=0;j<n;j++){
-            if(j>i){
-            int t=a[i][j];
-            a[i][j]=a[j][i];
-            a[j][i]=t;
+    void rotate(vector<vector<int>>& matrix) {
+        int n=matrix.size();
+        for(int i=0;i<matrix.size();i++){
+            for(int j=0;j<matrix.size();j++){
+                if(i<j)
+                swap(matrix[i][j],matrix[j][i]);
             }
         }
-    }
-    for(int i=0;i<n;i++){
-        for(int j=0;j<n/2;j++){
-            swap(a[i][j],a[i][n-1-j]);
+        for(int i=0;i<matrix.size();i++){
+            int j=0;
+            while(j<(n/2)){
+                swap(matrix[i][j],matrix[i][n-1-j]);
+                j++;
+            }
         }
-    }
-    for(int i=0;i<n;i++){
-        for(int j=0;j<n;j++){
-            cout<<a[i][j]<<" ";
-        }
-        cout<<endl;
-    } 
     }
 };
