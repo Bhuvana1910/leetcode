@@ -11,11 +11,11 @@
  */
 class Solution {
 public:
-    TreeNode* find(TreeNode* root, int val, int depth,int d,TreeNode*prev){
+    TreeNode* find(TreeNode* root, int val, int depth,int d){
         if(root==NULL)
         return NULL;
-        root->left=find(root->left,val,depth,d+1,root);
-        root->right=find(root->right,val,depth,d+1,root);
+        root->left=find(root->left,val,depth,d+1);
+        root->right=find(root->right,val,depth,d+1);
         if(depth==1 && d==1)
         {
              TreeNode*n=new TreeNode(val);
@@ -35,6 +35,6 @@ public:
 
     }
     TreeNode* addOneRow(TreeNode* root, int val, int depth) {
-        return find(root,val,depth,1,NULL);
+        return find(root,val,depth,1);
     }
 };
