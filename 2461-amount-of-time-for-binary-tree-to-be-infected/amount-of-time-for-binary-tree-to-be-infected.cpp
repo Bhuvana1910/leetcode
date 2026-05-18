@@ -11,47 +11,28 @@
  */
 class Solution {
 public:
-    void find(vector<vector<int>>&graph,TreeNode*root){
-        if(root==NULL)
-        return;
-        if(root->left){
-        graph[root->left->val].push_back(root->val);
-        graph[root->val].push_back(root->left->val);
-        }
-
-        find(graph,root->left);
-        if(root->right){
-        graph[root->right->val].push_back(root->val);
-        graph[root->val].push_back(root->right->val);
-        }
-        find(graph,root->right);
+int ans;
+int find(TreeNode* root, int start){
+    if(root==NULL)
+    return 0;
+    int l=find(root->left,start);
+    int r=find(root->right,start);
+    if(root->val==start){
+    ans=max({ans,l,r});
+    return -1;
     }
-    int amountOfTime(TreeNode* root, int start) {
-       
-        vector<vector<int>>graph(1000001);
-        find(graph,root);
-        deque<int>q;
-        set<int>vis;
-        q.push_back(start);
-        vis.insert(start);
-        int s=0;
-        while(!q.empty()){
-            int n=q.size();
-            while(n--){
-                int t=q.front();
-                q.pop_front();
-                for(int i=0;i<graph[t].size();i++){
-                    if(!vis.count(graph[t][i])){
-                        q.push_back(graph[t][i]);
-                        vis.insert(graph[t][i]);
-                    }
-                }
-            }
-            if(q.empty())
-            return s;
-            s++;
+    if(l<0 ||r<0){
+        ans=max({ans,abs(r)+abs(l)});
+        if(l<0)
+        return l-1;
+        return r-1;
+    }
+    return 1+max(l,r);
 
-        }
-        return s;
+}
+    int amountOfTime(TreeNode* root, int start) {
+        ans=0;
+        find(root,start);
+        return ans;
     }
 };
