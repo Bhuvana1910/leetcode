@@ -13,8 +13,8 @@ public:
         }
         for(auto i:m){
             vector<int>temp=i.second;
-            sort(temp.begin(),temp.end());
-            reverse(temp.begin(),temp.end());
+            sort(temp.begin(),temp.end(),greater<int>());
+            
             m[i.first]=temp;
         }
         vector<vector<int>>ans(mat.size(),vector<int>(mat[0].size()));
