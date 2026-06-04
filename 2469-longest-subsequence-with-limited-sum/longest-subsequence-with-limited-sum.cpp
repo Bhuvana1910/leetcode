@@ -5,11 +5,13 @@ int check(int l,int h,vector<int> &v,int i,vector<int>& queries)
     while(l<=h)
     {
         int mid=(l+h)/2;
-        if(queries[i]>=v[mid])
+        if(queries[i]>v[mid])
         {
         l=mid+1;
         ans=mid+1;
         }
+        else if(queries[i]==v[mid])
+        return mid+1;
         else 
         h=mid-1;
     }
