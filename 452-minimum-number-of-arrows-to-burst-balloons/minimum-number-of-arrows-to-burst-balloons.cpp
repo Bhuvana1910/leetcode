@@ -15,7 +15,7 @@ public:
            }
            else
            {
-            v[0]=max(v[0],curst);
+            //v[0]=max(v[0],curst);
             v[1]=min(v[1],curend);
            }
 
