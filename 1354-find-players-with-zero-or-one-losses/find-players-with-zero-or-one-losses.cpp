@@ -1,26 +1,24 @@
 class Solution {
 public:
     vector<vector<int>> findWinners(vector<vector<int>>& matches) {
-        map<int,int>m;
-        vector<int>f(1e5+1,0);
-        for(int i=0;i<matches.size();i++){
-            m[matches[i][0]]++;
-            m[matches[i][1]]--;
-            f[matches[i][0]]++;
-            f[matches[i][1]]++;
-
+        unordered_map<int,int>m;
+        for(int i=0;i<matches.size();i++)
+        {
+            int ans=matches[i][1];
+            m[ans]++;
         }
-        vector<vector<int>>ans(2);
-        for(auto i:m){
-            cout<<i.first<<"->"<<i.second<<endl;
+        set<int>l,w;
+        for(int i=0;i<matches.size();i++)
+        {
+            int a=matches[i][0];
+            int b=matches[i][1];
+            if(m[b]==1)
+            l.insert(b);
+            if(m.find(a)==m.end())
+            w.insert(a);
         }
-        for(auto i:m){
-            if(f[i.first]==i.second)
-            ans[0].push_back(i.first);
-            else if(f[i.first]-i.second==2)
-            ans[1].push_back(i.first);
-        }
-        return ans;
-        
+        vector<int>win(w.begin(),w.end());
+        vector<int>loose(l.begin(),l.end());
+        return{win,loose};
     }
 };
